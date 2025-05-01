@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+    commands:
+      - echo Installing Maven...
+      - yum install -y maven
+  build:
+    commands:
+      - echo Building the Java application...
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build completed.
+
+artifacts:
+  files:
+    - target/hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar
+    - appspec.yml
+    - scripts/*
