@@ -7,13 +7,14 @@ phases:
     commands:
       - echo Installing Maven...
       - yum install -y maven
+
   build:
     commands:
       - echo Building the Java application...
       - mvn clean package
       - echo Making shell scripts executable...
       - chmod +x scripts/*.sh
-      - echo Creating deployment directory...
+      - echo Creating deployment package...
       - mkdir -p build
       - cp target/*.jar build/
       - cp appspec.yml build/
@@ -21,15 +22,7 @@ phases:
       - cd build
       - zip -r ../phase1practise.zip .
       - cd ..
-      
-  post_build:
-    commands:
-      - echo Build completed.
 
 artifacts:
   files:
-    - target/hello-world-1.0-SNAPSHOT-jar-with-dependencies.jar
-    - appspec.yml
-    - scripts/*
-     - target/*.jar
-  name: phase1practise.zip
+    - phase1practise.zip
