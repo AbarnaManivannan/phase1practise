@@ -19,9 +19,7 @@ phases:
       - cp target/*.jar output/
       - cp appspec.yml output/
       - cp -r scripts output/
-      - cd output
-      - zip -r ../phase1practise.zip .
-      - cd ..
+      - zip -r phase1practise.zip -j output/* output/scripts/*
 
 artifacts:
   files:
