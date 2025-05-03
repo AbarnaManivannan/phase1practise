@@ -11,22 +11,14 @@ phases:
   build:
     commands:
       - echo Building the Java application...
-      - mvn clean package || { echo 'Maven build failed'; tail -n 20 /root/.m2/repository/*.log; exit 1; }
-      - echo Making shell scripts executable...
+      - mvn clean package
       - chmod +x scripts/*.sh
-      - echo Creating deployment package...
       - mkdir -p output
-      - ls -la target  # Check if the .jar file exists
-      - cp target/*.jar output/  # Copy the JAR file
-      - cp appspec.yml output/    # Copy the AppSpec file
-      - cp -r scripts output/     # Copy the scripts to the output folder
-      - ls -la output  # Verify that files are copied to the output folder
-      - zip -r output/phase1practise.zip output/*  # Create the zip file
-      - ls -la output  # Verify zip file creation
-      - cd output
-      - echo "Build artifacts created and zipped."
+      - cp appspec.yml output/
+      - cp -r scripts output/
+      - cp target/*.jar output/
 
 artifacts:
+  base-directory: output
   files:
-    - output/phase1practise.zip  # Correct the path to the zip file
-  discard-paths: yes  # Optional: To remove directory paths in the artifact
+    - '**/*'
